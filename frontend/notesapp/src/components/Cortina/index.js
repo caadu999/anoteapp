@@ -67,7 +67,7 @@ export default function Cortina() {
             }}
             transition={{
               delay: index * 0.15,
-              duration: 0.5,
+              duration: 0.18,
             }}
 
             key={index}

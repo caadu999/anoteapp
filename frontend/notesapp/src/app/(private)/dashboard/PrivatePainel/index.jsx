@@ -8,7 +8,7 @@ export default function PrivatePainel({
 }) {
   return (
     <div className="flex items-center justify-center h-full w-full overflow-hidden rounded-lg">
-      <div className=" h-full items-center w-90 flex flex-col gap-2 overflow-y-scroll custom-scrollbar bg-white ">
+      <div className=" h-full items-center w-96 2xl:w-100 flex flex-col gap-2 overflow-y-scroll custom-scrollbar bg-white ">
         <div className="flex items-center pl-4 pr-2 py-10 justify-between   w-full">
           <h1 className="font-bold flex items-center gap-3 text-[1.3em] text-[#141414] ">
             <FaRegStar size={24} /> Favoritos
@@ -17,7 +17,7 @@ export default function PrivatePainel({
             {favorites.length}
           </div>
         </div>
-        <motion.div className="flex pl-2.5 mb-10 flex-col gap-4 w-full ">
+        <motion.div className="flex mb-8 items-center  flex-col gap-6 w-full ">
           {favorites.map((note) => (
             <motion.div
               initial={{

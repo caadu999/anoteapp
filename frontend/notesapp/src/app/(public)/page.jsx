@@ -34,7 +34,7 @@ export default function Home() {
           anote.
         </Link>
 
-        <div className="flex w-[50%] h-full  bg-cover rounded-lg bg-no-repeat border-none  bg-[url('/001.png')]  p-20 flex-col  justify-between">
+        <div className="hidden lg:flex w-[50%] h-full  bg-cover rounded-lg bg-no-repeat border-none  bg-[url('/001.png')]  p-20 flex-col  justify-between">
           <div className="flex h-full justify-end flex-col gap-6">
             <div className="w-10 h-2 bg-[#141414] ml-1 rounded-full"></div>
 

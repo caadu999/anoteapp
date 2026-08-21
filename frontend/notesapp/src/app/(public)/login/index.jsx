@@ -55,13 +55,16 @@ export default function Login() {
             Email
           </label>
           <input
-            {...register("email")}
+            {...register("email", { required: "Email é obrigatório" })}
             type="email"
             name="email"
             id="email"
             placeholder="seu@email.com"
             className="bg-white w-full border border-gray-300 rounded-md p-2 focus:border focus:border-[#141414] outline-none ease-in delay-100   duration-150"
           />
+          {errors.email && (
+            <span className="text-red-500 text-sm">{errors.email.message}</span>
+          )}
         </div>
         <div className="flex flex-col gap-2 w-full">
           <label htmlFor="password" className="w-fit">
@@ -70,11 +73,22 @@ export default function Login() {
           <input
             placeholder="••••••••"
             className="bg-white w-full border border-gray-300 rounded-md p-2 focus:border focus:border-[#141414] outline-none ease-in delay-100   duration-150"
-            {...register("password")}
+            {...register("password", {
+              required: "Senha é obrigatória",
+              minLength: {
+                value: 8,
+                message: "A senha precisa ter no mínimo 8 caracteres ",
+              },
+            })}
             type="password"
             name="password"
             id="password"
           />
+          {errors.password && (
+            <span className="text-red-500 text-sm">
+              {errors.password.message}
+            </span>
+          )}
         </div>
         <motion.button
           type="submit"

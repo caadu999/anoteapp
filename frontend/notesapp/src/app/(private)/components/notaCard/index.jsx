@@ -16,7 +16,7 @@ export default function NotaCard({ note, handleToggle, handleDelete }) {
       <motion.div
         onHoverStart={() => setIsHovered(true)}
         onHoverEnd={() => setIsHovered(false)}
-        className={`flex flex-col justify-between  gap-4 py-6 rounded-md  max-w-85 h-60 min-w-0 p-4 shadow-[0_8px_24px_rgba(149,157,165,0.2)]`}
+        className={`flex flex-col justify-between  gap-4 py-6 rounded-md  max-w-85 h-60 min-w-84 p-4 shadow-[0_8px_24px_rgba(149,157,165,0.2)]`}
         style={{ backgroundColor: note.color }}
       >
         <div className="flex flex-col gap-4 ">

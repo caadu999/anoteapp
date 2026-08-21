@@ -174,8 +174,8 @@ export default function Dashboard() {
   return (
     <>
       <Cortina />
-      <main className="flex w-full min-h-screen items-center gap-4 p-5 overflow-hidden  bg-[#F7F6F6]">
-        <div className="flex gap-1 h-full shadow-[0_8px_24px_rgba(149,157,165,0.2)] ">
+      <main className="flex flex-col md:flex-row w-full min-h-screen items-center gap-4 p-6 2xl:p-8 overflow-hidden  bg-[#F7F6F6]">
+        <div className="hidden md:flex gap-1 h-full shadow-[0_8px_24px_rgba(149,157,165,0.2)] ">
           <PrivatePainel
             favorites={favorites}
             handleToggle={handleToggle}
@@ -184,7 +184,7 @@ export default function Dashboard() {
           />
         </div>
 
-        <div className="flex flex-col relative min-w-0 p-6 gap-7 overflow-y-scroll custom-scrollbar bg-white shadow-[0_8px_24px_rgba(149,157,165,0.2)] rounded-lg h-full flex-1">
+        <div className="flex flex-col w-full relative min-w-0 p-6 gap-7 overflow-y-scroll custom-scrollbar bg-white shadow-[0_8px_24px_rgba(149,157,165,0.2)] rounded-lg h-full flex-1">
           <h1 className="font-extrabold absolute text-[#141414] self-end text-3xl select-none">
             anote.
           </h1>
@@ -215,7 +215,7 @@ export default function Dashboard() {
               </div>
             </div>
           ) : (
-            <div className="grid grid-cols-[repeat(auto-fit,minmax(280px,340px))]  w-full justify-start gap-6  pb-8">
+            <div className="grid grid-cols-[repeat(auto-fit,minmax(280px,340px))]  w-full md:justify-start justify-center gap-6  pb-8">
               {notes.map((note) => (
                 <NotaCard
                   handleDelete={handleDelete}
