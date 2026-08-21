@@ -94,8 +94,6 @@ A aplicação estará disponível em `http://localhost:3000` (ou na porta config
 
 O login gera um token JWT, retornado pela API e salvo no `localStorage` do navegador. Esse token é enviado nas requisições subsequentes (via header `Authorization`) para acessar rotas protegidas.
 
-> **Observação:** armazenar o JWT no `localStorage` é prático, mas fica exposto a ataques XSS. Para produção, considerar `httpOnly cookies` como alternativa mais segura.
-
 ## Licença
 
 Este projeto é de uso pessoal/educacional.
