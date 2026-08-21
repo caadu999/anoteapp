@@ -4,7 +4,12 @@ import { useState } from "react";
 import { motion } from "framer-motion";
 
 export default function Forms({ onNotaCriada, setOpenForm }) {
-  const { register, handleSubmit, setValue } = useForm();
+  const {
+    register,
+    handleSubmit,
+    setValue,
+    formState: { errors },
+  } = useForm();
   const [isHover, setIsHover] = useState(false);
   const token = localStorage.getItem("token");
   const [selectedColor, setSelectedColor] = useState("#E8E3FF");
@@ -19,14 +24,17 @@ export default function Forms({ onNotaCriada, setOpenForm }) {
 
   async function handleCriar(data) {
     try {
-      const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/notes`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`,
+      const response = await fetch(
+        `${process.env.NEXT_PUBLIC_API_URL}/api/notes`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+          body: JSON.stringify(data),
         },
-        body: JSON.stringify(data),
-      });
+      );
 
       const result = await response.json();
 
@@ -71,12 +79,15 @@ export default function Forms({ onNotaCriada, setOpenForm }) {
           </label>
           <input
             className="bg-white border border-gray-300 p-2 pl-4 rounded-md focus:border focus:border-[#141414] outline-none ease-in    duration-100"
-            {...register("title")}
+            {...register("title", { required: "O título é obrigatorio" })}
             type="text"
             name="title"
             id="title"
             placeholder="Escreva aqui..."
           />
+          {errors.title && (
+            <span className="text-red-500 text-sm">{errors.title.message}</span>
+          )}
         </div>
         <div className="flex flex-col self-start gap-2 ">
           <label htmlFor="description" className="font-bold text-md w-fit">
@@ -84,12 +95,23 @@ export default function Forms({ onNotaCriada, setOpenForm }) {
           </label>
           <textarea
             className="bg-white border border-gray-300 h-32 w-86 p-2 pl-4 rounded-md focus:border focus:border-[#141414] outline-none ease-in  duration-100"
-            {...register("description")}
+            {...register("description", {
+              required: "A descrição é obrigatoria",
+              maxLength: {
+                value: 100,
+                message: "A mensagem não pode passar de 100 caracteres.",
+              },
+            })}
             type="text"
             name="description"
             id="description"
             placeholder="Escreva aqui..."
           />
+          {errors.description && (
+            <span className="text-red-500 text-sm">
+              {errors.description.message}
+            </span>
+          )}
         </div>
         <div className="flex gap-3">
           {colors.map((color) => (
