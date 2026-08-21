@@ -29,8 +29,6 @@ export default function Dashboard() {
   useEffect(() => {
     const token = localStorage.getItem("token");
 
-    console.log("DASHBOARD - TOKEN:", token);
-
     if (!token) {
       console.log("REDIRECIONANDO PARA / PORQUE NÃO TEM TOKEN");
       router.replace("/");
@@ -41,11 +39,14 @@ export default function Dashboard() {
     async function getUser() {
       const token = localStorage.getItem("token");
 
-      const response = await fetch("http://localhost:3008/api/auth/user", {
-        headers: {
-          Authorization: `Bearer ${token}`,
+      const response = await fetch(
+        `${process.env.NEXT_PUBLIC_API_URL}/api/auth/user`,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
         },
-      });
+      );
 
       const data = await response.json();
 
@@ -69,11 +70,14 @@ export default function Dashboard() {
       }
 
       try {
-        const response = await fetch("http://localhost:3008/api/notes", {
-          headers: {
-            Authorization: `Bearer ${token}`,
+        const response = await fetch(
+          `${process.env.NEXT_PUBLIC_API_URL}/api/notes`,
+          {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
           },
-        });
+        );
 
         const data = await response.json();
 
@@ -96,7 +100,7 @@ export default function Dashboard() {
       try {
         const token = localStorage.getItem("token");
         const response = await fetch(
-          "http://localhost:3008/api/notes/favorites",
+          `${process.env.NEXT_PUBLIC_API_URL}/api/notes/favorites`,
           {
             headers: {
               Authorization: `Bearer ${token}`,
@@ -122,7 +126,7 @@ export default function Dashboard() {
     try {
       const token = localStorage.getItem("token");
       const response = await fetch(
-        `http://localhost:3008/api/notes/${id}/favorites/toggle`,
+        `${process.env.NEXT_PUBLIC_API_URL}/api/notes/${id}/favorites/toggle`,
         {
           method: "PATCH",
           headers: {
@@ -156,7 +160,7 @@ export default function Dashboard() {
   async function handleDelete(id) {
     const token = localStorage.getItem("token");
     try {
-      await fetch(`http://localhost:3008/api/notes/${id}`, {
+      await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/notes/${id}`, {
         method: "DELETE",
         headers: {
           Authorization: `Bearer ${token}`,

@@ -19,7 +19,7 @@ export default function Forms({ onNotaCriada, setOpenForm }) {
 
   async function handleCriar(data) {
     try {
-      const response = await fetch("http://localhost:3008/api/notes", {
+      const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/notes`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

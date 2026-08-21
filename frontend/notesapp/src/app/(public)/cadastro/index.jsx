@@ -2,7 +2,7 @@ import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { useForm } from "react-hook-form";
 import { motion, easeInOut } from "framer-motion";
-import Cortina from "@/components/Cortina";
+
 
 export default function Cadastro() {
   const {
@@ -17,7 +17,7 @@ export default function Cadastro() {
 
   async function handleCadastro(data) {
     try {
-      const response = await fetch("http://localhost:3008/api/auth/register", {
+      const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/auth/register`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
