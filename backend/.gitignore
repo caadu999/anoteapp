@@ -19,3 +19,13 @@ logs/
 
 # misc
 .DS_Store
+/generated/prisma
+
+# ferramentas de AI/agents (se não quiser versionar configs locais)
+.claude/
+.agents/
+.windsurf/
+
+# IDE / editores
+.vscode/
+.idea/
