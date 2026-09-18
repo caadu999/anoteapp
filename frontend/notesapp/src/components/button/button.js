@@ -24,7 +24,7 @@ export default function Button({ texto }) {
         }}
       >
         <motion.div
-          className="flex h-12 w-12 shrink-0 rotate-30 items-center justify-center rounded-full bg-black"
+          className="flex h-12 w-12 shrink-0 rotate-30 items-center justify-center rounded-full bg-[#080807]"
           animate={{
             scale: isHover ? 0 : 1,
           }}
@@ -80,7 +80,7 @@ export default function Button({ texto }) {
         }}
       >
         <motion.div
-          className="flex h-12 w-12 shrink-0 cursor-pointer rotate-30 items-center justify-center rounded-full bg-black"
+          className="flex h-12 w-12 shrink-0 cursor-pointer rotate-30 items-center justify-center rounded-full bg-[#080807]"
           initial={{
             scale: 0,
           }}
