@@ -8,8 +8,8 @@ export default function Cortina() {
   const [isLeaving, setIsLeaving] = useState(false);
 
   useEffect(() => {
-    const leaveTimer = setTimeout(() => setIsLeaving(true), 1800);
-    const removeTimer = setTimeout(() => setShowIntro(false), 2300);
+    const leaveTimer = setTimeout(() => setIsLeaving(true), 400);
+    const removeTimer = setTimeout(() => setShowIntro(false), 900);
 
     return () => {
       clearTimeout(leaveTimer);
@@ -21,7 +21,6 @@ export default function Cortina() {
 
   const texto = "anote.";
   const textoArray = texto.split("");
-  console.log(textoArray);
 
   return (
     <motion.div
@@ -38,44 +37,7 @@ export default function Cortina() {
         duration: 0.5,
       }}
 
-      className="fixed inset-0 flex justify-center items-center bg-[#141414] z-50"
-    >
-      <motion.div
-        className="text-6xl font-extrabold text-white"
-        initial={{
-          opacity: 0,
-          y: 16,
-        }}
-
-        animate={{
-          opacity: 1,
-          y: 0,
-        }}
-
-        transition={{
-          duration: 0.6,
-        }}
-      >
-        {textoArray.map((letra, index) => (
-          <motion.p
-            className="inline-block"
-            initial={{
-              opacity: 0,
-            }}
-            animate={{
-              opacity: 1,
-            }}
-            transition={{
-              delay: index * 0.15,
-              duration: 0.18,
-            }}
-
-            key={index}
-          >
-            {letra}{" "}
-          </motion.p>
-        ))}
-      </motion.div>
-    </motion.div>
+      className="fixed inset-0 flex w-full h-screen justify-center items-center bg-white z-50"
+    ></motion.div>
   );
 }

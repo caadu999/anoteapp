@@ -1,7 +1,12 @@
+"use client";
+
 import { useForm } from "react-hook-form";
 import { IoClose } from "react-icons/io5";
 import { useState } from "react";
 import { motion } from "framer-motion";
+import Button from "@/components/button/button";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { createNote } from "@/lib/api";
 
 export default function Forms({ onNotaCriada, setOpenForm }) {
   const {
@@ -11,7 +16,6 @@ export default function Forms({ onNotaCriada, setOpenForm }) {
     formState: { errors },
   } = useForm();
   const [isHover, setIsHover] = useState(false);
-  const token = localStorage.getItem("token");
   const [selectedColor, setSelectedColor] = useState("#E8E3FF");
   const colors = [
     "#E8E3FF",
@@ -21,38 +25,21 @@ export default function Forms({ onNotaCriada, setOpenForm }) {
     "#FFE1D5",
     "#E5E7EB",
   ];
+  const queryClient = useQueryClient();
 
-  async function handleCriar(data) {
-    try {
-      const response = await fetch(
-        `${process.env.NEXT_PUBLIC_API_URL}/api/notes`,
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${token}`,
-          },
-          body: JSON.stringify(data),
-        },
-      );
-
-      const result = await response.json();
-
-      if (!response.ok) {
-        console.log("erro:", result);
-        return;
-      }
-
-      console.log("Criado com sucesso:", result);
-      onNotaCriada(result);
+  const mutation = useMutation({
+    mutationFn: createNote,
+    onSuccess: () => {
+      queryClient.invalidateQueries(["notes"]);
       setOpenForm(false);
-    } catch (erorr) {
-      console.error("Erro", erorr);
-    }
-  }
+    },
+    onError: (error) => {
+      console.error("Erro ao criar nota", error);
+    },
+  });
 
   return (
-    <motion.div className="flex items-center bg-black/20 backdrop-blur-[20px] backdrop-brightness-75 fixed inset-0 h-screen w-full justify-center">
+    <motion.div className="flex items-center z-9999 bg-black/20 text-[#141414] backdrop-blur-[20px] backdrop-brightness-75 fixed inset-0 h-screen w-full justify-center">
       <motion.form
         initial={{
           opacity: 0,
@@ -63,11 +50,17 @@ export default function Forms({ onNotaCriada, setOpenForm }) {
           scale: 1,
           opacity: 1,
         }}
+        exit={{
+          opacity: 0,
+          scale: 0.5,
+          originX: 0.5,
+        }}
         className="flex relative items-center bg-white p-8 rounded-md justify-center flex-col gap-6"
-        onSubmit={handleSubmit(handleCriar)}
+        onSubmit={handleSubmit(mutation.mutate)}
       >
         <h1 className="text-2xl font-bold self-start">Criar nova nota</h1>
         <button
+          type="button"
           onClick={() => setOpenForm(false)}
           className="flex absolute right-4 top-4 self-end  cursor-pointer"
         >
@@ -79,7 +72,13 @@ export default function Forms({ onNotaCriada, setOpenForm }) {
           </label>
           <input
             className="bg-white border border-gray-300 p-2 pl-4 rounded-md focus:border focus:border-[#141414] outline-none ease-in    duration-100"
-            {...register("title", { required: "O título é obrigatorio" })}
+            {...register("title", {
+              required: "O título é obrigatorio",
+              maxLength: {
+                value: 20,
+                message: "O título não pode passar de 20 caracteres.",
+              },
+            })}
             type="text"
             name="title"
             id="title"
@@ -113,7 +112,7 @@ export default function Forms({ onNotaCriada, setOpenForm }) {
             </span>
           )}
         </div>
-        <div className="flex gap-3">
+        <div className="flex mt-2 gap-3">
           {colors.map((color) => (
             <div
               key={color}
@@ -126,31 +125,8 @@ export default function Forms({ onNotaCriada, setOpenForm }) {
             />
           ))}
         </div>
-        <div className="flex gap-6 items-right self-end">
-          <button onClick={() => setOpenForm(false)} className="cursor-pointer">
-            Cancelar
-          </button>
-          <motion.button
-            onHoverStart={() => setIsHover(true)}
-            onHoverEnd={() => setIsHover(false)}
-            className="bg-[#242424] z-50 relative overflow-hidden w-40 h-10 text-white cursor-pointer p-2 rounded-lg"
-            type="submit"
-          >
-            <p className=" absolute inset-0 flex items-center justify-center z-10">
-              Criar Nota
-            </p>
-            <motion.div
-              animate={{
-                y: isHover ? "0%" : "100%",
-                scale: isHover ? 12 : 1,
-              }}
-              initial={false}
-              transition={{
-                duration: 0.3,
-              }}
-              className="absolute z-0 bottom-0 left-0  h-10 w-10 rounded-full bg-[#141414]"
-            ></motion.div>
-          </motion.button>
+        <div className="flex my-4 items-center justify-center">
+          <Button texto="Criar" />
         </div>
       </motion.form>
     </motion.div>

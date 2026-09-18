@@ -1,6 +1,5 @@
 import { prisma } from "../config/database.js";
 
-
 export const getCards = async (req, res) => {
   try {
     const userId = req.user.id;
@@ -37,6 +36,7 @@ export const toggleFavorite = async (req, res) => {
   try {
     const cardId = Number(req.params.cardId);
     const userId = req.user.id;
+
     const card = await prisma.card.findFirst({
       where: {
         cardId,

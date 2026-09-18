@@ -1,41 +1,21 @@
-# NotesApp
+## AnoteApp
 
 Aplicação web para criação e gerenciamento de notas pessoais, com autenticação via JWT.
 
 ## Stack
 
-Projeto no modelo **MERN**, com Next.js no lugar do React puro:
-
-- **MongoDB** — banco de dados
+- **PostgreSQL** — banco de dados
+- **Prisma** — ORM
 - **Express** — API REST
 - **React (via Next.js)** — interface
 - **Node.js** — runtime do backend
 
-**Autenticação:** JWT (JSON Web Token), armazenado no `localStorage` do navegador.
-
-## Estrutura do repositório
-
-```
-notesapp/
-├── backend/          # API REST (Express + Mongoose + MongoDB)
-│   ├── src/
-│   │   ├── controllers/
-│   │   ├── middleware/
-│   │   ├── models/
-│   │   ├── routes/
-│   │   └── server/
-│   ├── .env.example
-│   └── package.json
-└── frontend/          # Interface (Next.js)
-    └── notesapp/
-        ├── src/
-        └── package.json
-```
+**Autenticação:** JWT (JSON Web Token), armazenado em **cookies** (httpOnly).
 
 ## Funcionalidades
 
 - Cadastro e login de usuários
-- Autenticação via JWT
+- Autenticação via JWT (cookies httpOnly)
 - Criação, listagem e exclusão de notas
 - Rotas protegidas (apenas usuários autenticados acessam suas notas)
 
@@ -44,7 +24,7 @@ notesapp/
 ### Pré-requisitos
 
 - Node.js instalado
-- Uma instância do MongoDB (local ou Atlas)
+- Uma instância do PostgreSQL (local ou hospedada)
 
 ### 1. Clonar o repositório
 
@@ -69,9 +49,15 @@ copy .env.example .env
 Preenche as variáveis no `.env`:
 
 ```env
-PORT=3000
-MONGO_URI=sua_string_de_conexao_do_mongodb
+PORT=8000
+DATABASE_URL=sua_string_de_conexao_do_postgresql
 JWT_SECRET=sua_chave_secreta
+```
+
+Roda as migrations do Prisma:
+
+```bash
+npx prisma migrate dev
 ```
 
 Inicia o servidor:
@@ -92,7 +78,7 @@ A aplicação estará disponível em `http://localhost:3000` (ou na porta config
 
 ## Autenticação
 
-O login gera um token JWT, retornado pela API e salvo no `localStorage` do navegador. Esse token é enviado nas requisições subsequentes (via header `Authorization`) para acessar rotas protegidas.
+O login gera um token JWT, retornado pela API e salvo em um **cookie httpOnly**. Esse token é enviado automaticamente pelo navegador nas requisições subsequentes para acessar rotas protegidas.
 
 ## Licença
 
