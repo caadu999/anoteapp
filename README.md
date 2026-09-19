@@ -2,6 +2,8 @@
 
 Aplicação web para criação e gerenciamento de notas pessoais, com autenticação via JWT.
 
+🔗 **Aplicação online:** [anoteapp-iota.vercel.app](https://anoteapp-iota.vercel.app)
+
 ## Stack
 
 - **PostgreSQL** — banco de dados
@@ -79,6 +81,12 @@ A aplicação estará disponível em `http://localhost:3000` (ou na porta config
 ## Autenticação
 
 O login gera um token JWT, retornado pela API e salvo em um **cookie httpOnly**. Esse token é enviado automaticamente pelo navegador nas requisições subsequentes para acessar rotas protegidas.
+
+**Deploy:**
+
+- Frontend hospedado na [Vercel](https://vercel.com)
+- Backend hospedado no [Railway](https://railway.app)
+- Banco de dados hospedado no [Neon](https://neon.tech)
 
 ## Licença
 
